@@ -40,7 +40,7 @@ export default class Header extends React.Component {
         </div>
         <div className="topnav">
           <div id="myLinks" className="hide-nav-menu">
-            <Link to="/" className="active link-page" >Home</Link>
+            <Link to="/" className="link-page" >Home</Link>
             <Link to="/products" className="link-page" >Products</Link>
             <Link to="/contact" className="link-page" >Contact</Link>
             <Link to="/about" className="link-page" >About</Link>
