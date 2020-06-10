@@ -36,6 +36,27 @@ app.get('/api/products', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/products/:productId', (req, res, next) => {
+
+  const { productId } = req.params;
+
+  const sqlGetProductDetail = `
+      SELECT "productId",
+              "name",
+              "price",
+              "image",
+              "shortDescription"
+        FROM "products"
+        WHERE "products"."productId" = ${productId};
+  `;
+
+  db.query(sqlGetProductDetail)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
