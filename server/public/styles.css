@@ -19,23 +19,22 @@
 }
 
 .title{
-    margin-left: 20%;
+    margin-left: 19%;
+    margin-top: 2%;
 }
 
 .cart-icon{
     float: right;
     font-size: 2rem;
-    padding-right: 4%;
-    padding-top: 6%;
+    padding-right: 5%;
+    padding-top: 5%;
 }
 
 /*this is the main-page style -- mobile*/
 
 .main-container{ 
-    /*background-image: url('../../images/tea-and-teapot.png'); */
     height: 500px;
-    width: 206px;
-   
+    width: 206px;  
 }
 
 .main-tea-img{
@@ -101,3 +100,11 @@
     background-color: #333;
     color: white;
   } */
+
+
+  /* products page - each item --mobile */
+
+
+  .card{
+    border: 1px solid black;
+  }
