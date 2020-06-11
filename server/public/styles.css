@@ -34,21 +34,20 @@
 
 .main-container{ 
     height: 500px;
-    width: 206px;  
+    width: 375px;  
 }
 
 .main-tea-img{
     height: 170px;
-    width: 359px;
+    width: 375px;
 }
 
 .main-tea-text{
     font-family: 'Lucida Sans';
     font-size: 1.25rem;
-    margin-left: 10px;
-    padding: 5px 15px 0 15px;
+    padding: 20px 20px 0 20px;
     text-align: center;
-    width: 300px;
+    width: 375px;
 }
 
 
@@ -102,9 +101,18 @@
   } */
 
 
-  /* products page - each item --mobile */
+  /* products page - card format for each item to display in all products view --mobile */
 
 
-  .card{
+  .view-all-cards{
     border: 1px solid black;
   }
+
+  /*productDetail - card format for detail view --mobile */
+
+  .card-detail{
+    border: none;
+  }
+
+
+ 

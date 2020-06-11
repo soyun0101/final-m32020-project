@@ -37,7 +37,7 @@ export default class AllProductsList extends React.Component {
               const dividedPrice = price / 100;
 
               return <div key={productId}>
-                <ProductItem productId={productId} image={image} name={name} price={dividedPrice} />
+                <ProductItem productId={productId} image={image} name={name} price={dividedPrice} setView={this.props.setView} />
               </div>;
             })
           }

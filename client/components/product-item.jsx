@@ -9,11 +9,12 @@ export default class ProductItem extends React.Component {
 
   handleTitleClick() {
 
+    this.props.setView('detail', { params: this.props.productId });
   }
 
   render() {
     return (
-      <div className="card mt-5 ml-2" style={ { maxWidth: '350px' } }>
+      <div className="card view-all-cards mt-5 ml-2" style={ { maxWidth: '350px' } }>
 
         <div className="row no-gutters">
           <div className="col-7 mb-2">
@@ -21,7 +22,7 @@ export default class ProductItem extends React.Component {
           </div>
           <div className="col-5">
             <div className="card-body">
-              <h6 className="card-title mt-4 ml-2">{this.props.name}</h6>
+              <h6 className="card-title mt-4 ml-2" onClick={this.handleTitleClick} style={ { cursor: 'pointer' } }>{this.props.name}</h6>
               <p className="ml-2">${this.props.price.toFixed(2)}</p>
             </div>
           </div>

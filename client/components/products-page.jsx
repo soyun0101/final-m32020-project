@@ -1,6 +1,6 @@
 import React from 'react';
-
 import AllProductsList from './all-products';
+import ProductDetail from './product-detail';
 
 export default class ProductsPage extends React.Component {
   constructor() {
@@ -23,25 +23,26 @@ export default class ProductsPage extends React.Component {
   setView(name, params) {
     this.setState({
       view: {
-        name: name,
-        params: params
+        name,
+        params
       }
     });
   }
 
   render() {
 
-    return <div>
-      {
-        (() => {
-          switch (this.state.view.name) {
-            case 'catalog': return <AllProductsList />;
-
-          }
-        })()
-      }
-
-    </div>;
+    return (
+      <div>
+        {
+          (() => {
+            switch (this.state.view.name) {
+              case 'catalog': return <AllProductsList setView={this.setView}/>;
+              case 'detail': return <ProductDetail setView={this.setView} params={this.state.view.params}/>;
+            }
+          })()
+        }
+      </div>
+    );
 
   }
 }
