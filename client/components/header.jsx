@@ -36,7 +36,9 @@ export default class Header extends React.Component {
         <div className="header">
           <i className="fa fa-bars menu-icon" onClick={this.toggleNavClick}></i>
           <h1 className="title">Tea Time</h1>
-          <i className="fa fa-shopping-cart cart-icon"></i>
+          <div className="cart-icon">
+            <i className="fa fa-shopping-cart cart-icon"><span className="badge badge-notify">{this.props.cartItemCount}</span></i>
+          </div>
         </div>
         <div className="topnav">
           <div id="myLinks" className="hide-nav-menu">

@@ -3,8 +3,8 @@ import AllProductsList from './all-products';
 import ProductDetail from './product-detail';
 
 export default class ProductsPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       view: {
@@ -14,6 +14,7 @@ export default class ProductsPage extends React.Component {
     };
 
     this.setView = this.setView.bind(this);
+
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ export default class ProductsPage extends React.Component {
           (() => {
             switch (this.state.view.name) {
               case 'catalog': return <AllProductsList setView={this.setView}/>;
-              case 'detail': return <ProductDetail setView={this.setView} params={this.state.view.params}/>;
+              case 'detail': return <ProductDetail setView={this.setView} params={this.state.view.params} addCart={this.props.addCart}/>;
             }
           })()
         }

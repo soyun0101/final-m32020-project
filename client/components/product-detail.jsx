@@ -11,6 +11,7 @@ export default class ProductDetail extends React.Component {
 
     this.handleBackToCatalogClick = this.handleBackToCatalogClick.bind(this);
     this.getProductDetail = this.getProductDetail.bind(this);
+
   }
 
   componentDidMount() {
@@ -36,6 +37,11 @@ export default class ProductDetail extends React.Component {
     const formatPrice = price / 100;
     const fixedPrice = formatPrice.toFixed(2);
 
+    const handleAddCartClick = () => {
+      // console.log('in handleAddCartClick ');
+      this.props.addCart(this.state.product);
+    };
+
     return (
 
       <div>
@@ -49,7 +55,7 @@ export default class ProductDetail extends React.Component {
             <h5 className="card-title">{name}</h5>
             <p className="card-text">{`$${fixedPrice}`}</p>
             <p className="card-text">{shortDescription}</p>
-            <a href="#" className="btn btn-primary">ADD</a>
+            <button onClick={handleAddCartClick} className="btn btn-primary">Add To Cart</button>
           </div>
         </div>
 

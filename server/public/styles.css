@@ -27,8 +27,17 @@
     float: right;
     font-size: 2rem;
     padding-right: 5%;
-    padding-top: 5%;
+    padding-top: 4%;
 }
+
+.badge-notify{
+  background: gray;
+  font-size: small;
+  position:relative;
+  right: -28px;
+  top: -58px;
+}
+
 
 /*this is the main-page style -- mobile*/
 
