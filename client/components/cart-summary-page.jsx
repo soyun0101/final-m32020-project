@@ -20,18 +20,18 @@ export default class CartSummaryPage extends React.Component {
     return (
       <div>
         <div>
-          <Link to="/products" className="link-page" style={ { cursor: 'pointer' } }>
+          <Link to="/products" className="link-page ml-2" style={ { cursor: 'pointer' } }>
             {'< Continue shopping'}
           </Link>
         </div>
 
-        <div className="mt-3">
+        <div className="mt-3 ml-2">
           <h3>Cart Summary</h3>
         </div>
         {
           (() => {
             if (!this.props.cartItems.length) {
-              return <h5 className="ml-2">You have no items in your cart</h5>;
+              return <h5 className="ml-3">You have no items in your cart</h5>;
             } else {
               return (
                 <>

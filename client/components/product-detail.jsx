@@ -45,7 +45,7 @@ export default class ProductDetail extends React.Component {
     return (
 
       <div>
-        <div onClick={this.handleBackToCatalogClick} style={ { cursor: 'pointer' } }>
+        <div onClick={this.handleBackToCatalogClick} className="ml-2" style={ { cursor: 'pointer' } }>
           {'< Back to products'}
         </div>
 
