@@ -35,7 +35,7 @@
   font-size: small;
   position:relative;
   right: -28px;
-  top: -58px;
+  top: -57px;
 }
 
 
@@ -63,18 +63,19 @@
 /*nav menu style -- mobile */
 
 .mobile-container {
-    max-width: 480px;
-    margin: auto;
     background-color: #555;
-    height: 500px;
-    color: white;
     border-radius: 10px;
+    color: white;
+    height: 500px;
+    margin: auto;
+    max-width: 480px;
   }
 
 .topnav {
     overflow: hidden;
     background-color: #333;
     position: relative;
+    width: 375px;
   }
   
   .topnav .hide-nav-menu{

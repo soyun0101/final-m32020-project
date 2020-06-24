@@ -36,9 +36,11 @@ export default class Header extends React.Component {
         <div className="header">
           <i className="fa fa-bars menu-icon" onClick={this.toggleNavClick}></i>
           <h1 className="title">Tea Time</h1>
-          <div className="cart-icon">
+          {/* <div className="cart-icon"> */}
+          <Link to="/cart-summary" className="cart-icon link-page">
             <i className="fa fa-shopping-cart cart-icon"><span className="badge badge-notify">{this.props.cartItemCount}</span></i>
-          </div>
+          </Link>
+          {/* </div> when added this div, it created an extra space between header and contents below (maybe nav bar?) also caused width to shorten */}
         </div>
         <div className="topnav">
           <div id="myLinks" className="hide-nav-menu">

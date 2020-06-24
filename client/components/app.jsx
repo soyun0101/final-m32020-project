@@ -5,6 +5,7 @@ import MainPage from './main-page';
 import ProductsPage from './products-page';
 import AboutUs from './about-us-page';
 import ContactUs from './contact-us-page';
+import CartSummaryPage from './cart-summary-page';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class App extends React.Component {
     fetch(`/api/cart/${product.productId}`, options)
       .then(res => res.json())
       .then(data => {
-        this.cartArray.push(data);
+        this.cartArray.push(data); /* if cart items double,the issue may be here */
         this.setState({ cart: this.cartArray });
       });
 
@@ -68,6 +69,7 @@ export default class App extends React.Component {
           <Route exact path="/products" render={addCart => (<ProductsPage addCart={this.addToCart}/>)}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/contact" component={ContactUs}/>
+          <Route exact path="/cart-summary" render={cartItems => <CartSummaryPage cartItems={this.state.cart}/>}/>
         </Switch>
       </div>);
   }
