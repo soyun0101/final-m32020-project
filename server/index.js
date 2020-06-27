@@ -120,13 +120,20 @@ app.post('/api/cart/:productId', (req, res, next) => {
         } /* ending for else statment on if(!result.rows[0]) */
       }) /* ending for sqlCart.then */
       .then(response => {
+
+        const params = [
+          response.cartId,
+          req.params.productId,
+          response.price
+        ];
+
         const sqlInsertIntoCartItems = `
                   INSERT INTO "cartItems" ("cartId", "productId", "price")
-                        VALUES (${response.cartId}, ${productId}, ${response.price})
+                        VALUES ($1, $2, $3)
                       RETURNING "cartItemId"
             `;
 
-        return db.query(sqlInsertIntoCartItems)
+        return db.query(sqlInsertIntoCartItems, params)
           .then(cartItemIdResult => {
             return cartItemIdResult.rows[0];
           }) /* apart of the cartITEMIdResult then statement */
@@ -153,6 +160,48 @@ app.post('/api/cart/:productId', (req, res, next) => {
 
   } /* ending for if(productId > 0) else statement */
 }); /* ending for app.post */
+
+app.post('/api/orders', (req, res, next) => {
+
+  const { cartId } = req.session;
+
+  // console.log('cartid is: ', cartId);
+
+  const { name, creditCard, shippingAddress } = req.body;
+
+  const params = [
+    req.session.cartId,
+    req.body.name,
+    req.body.creditCard,
+    req.body.shippingAddress
+  ];
+
+  if (!cartId) {
+    res.status(400).json({ error: 'No cartId for the session order' });
+  } else if (name && creditCard && shippingAddress) {
+
+    const sqlOrders = `
+      INSERT INTO "orders" ("cartId", "name", "creditCard", "shippingAddress")
+       VALUES ($1, $2, $3, $4)
+       RETURNING "orderId",
+                  "createdAt",
+                  "name",
+                  "creditCard",
+                  "shippingAddress"
+    `;
+
+    db.query(sqlOrders, params)
+      .then(result => {
+
+        return res.status(200).json(result.rows[0]);
+      });
+
+    delete req.session.cartId;
+    // console.log('req.session.cartId is: ', req.session.cartId);
+
+  }
+
+}); /* ending for app.post orders */
 
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
