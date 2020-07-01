@@ -6,13 +6,21 @@ export default class CartSummaryPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.priceTotal = 0;
+    this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
 
-    this.handleContinueShoppingClick = this.handleContinueShoppingClick.bind(this);
+    this.totalPrice = 0;
+
   }
 
-  handleContinueShoppingClick() {
+  componentDidMount() {
 
+    this.props.setCartView('cartSummary');
+  }
+
+  handleCheckoutClick() {
+    // console.log('in handleCheckoutClick');
+
+    this.props.setCartView('placeOrder');
   }
 
   render() {
@@ -40,25 +48,27 @@ export default class CartSummaryPage extends React.Component {
                       {
                         this.props.cartItems.map(eachCartProductInfo => {
 
+                          // console.log('eachCartProductInfo is: ', eachCartProductInfo);
+
                           const { productId, image, name, price } = eachCartProductInfo;
 
                           const dividedPrice = price / 100;
 
-                          this.priceTotal = this.priceTotal + dividedPrice;
+                          this.totalPrice = this.totalPrice + dividedPrice;
 
                           return <div key={productId}>
-                            <CartSummaryItem productId={productId} image={image} name={name} price={dividedPrice} />
+                            <CartSummaryItem productId={productId} image={image} name={name} price={price} />
                           </div>;
                         })
-                      }
 
+                      }
                     </div>
                   </div>
 
                   <div className="float-right mt-3 mr-3">
-                    <h5>Item Total: <span>{`$${this.priceTotal.toFixed(2)}`}</span></h5>
+                    <h5>Item Total: <span>{`$${this.totalPrice.toFixed(2)}`}</span></h5>
                     <div className="mt-3 ml-4">
-                      <button className="btn btn-info">Check out</button>
+                      <button className="btn btn-info" onClick={this.handleCheckoutClick}>Check out</button>
                     </div>
                   </div>
 
@@ -73,3 +83,45 @@ export default class CartSummaryPage extends React.Component {
   }
 
 }
+
+// (() => {
+//   if (!this.props.cartItems.length) {
+//     return <h5 className="ml-3">You have no items in your cart</h5>;
+//   } else {
+//     return (
+//       <>
+//         <div className="container mt-2">
+//           <div className="row">
+//             {
+//               this.props.cartItems.map(eachCartProductInfo => {
+
+//                 console.log('eachCartProductInfo is: ', eachCartProductInfo)
+
+//                 const { productId, image, name, price } = eachCartProductInfo;
+
+//                 const dividedPrice = price / 100;
+
+//                 this.priceTotal = this.priceTotal + dividedPrice;
+
+//                 console.log(this.priceTotal);
+
+//                 return <div key={productId}>
+//                   <CartSummaryItem productId={productId} image={image} name={name} price={dividedPrice} />
+//                 </div>;
+//               })
+//             }
+
+//           </div>
+//         </div>
+
+//         <div className="float-right mt-3 mr-3">
+//           <h5>Item Total: <span>{`$${this.priceTotal.toFixed(2)}`}</span></h5>
+//           <div className="mt-3 ml-4">
+//             <button className="btn btn-info" onClick={handleCheckoutClick}>Check out</button>
+//           </div>
+//         </div>
+
+//       </>
+//     );
+//   }
+// })()

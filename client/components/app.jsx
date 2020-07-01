@@ -5,7 +5,7 @@ import MainPage from './main-page';
 import ProductsPage from './products-page';
 import AboutUs from './about-us-page';
 import ContactUs from './contact-us-page';
-import CartSummaryPage from './cart-summary-page';
+import CartViewPage from './cart-view-page';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,6 +18,7 @@ export default class App extends React.Component {
 
     this.getCartItems = this.getCartItems.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
 
     this.cartArray = [];
 
@@ -54,8 +55,32 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.cartArray.push(data); /* if cart items double,the issue may be here */
+        // console.log('this.cartArray is: ', this.cartArray);
         this.setState({ cart: this.cartArray });
       });
+
+  }
+
+  placeOrder(name, creditCard, shippingAddress) {
+
+    this.setState({
+      cart: []
+    });
+
+    const data = {
+      name: name,
+      creditCard: creditCard,
+      shippingAddress: shippingAddress
+    };
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    fetch('/api/orders', options)
+      .then(res => res.json());
 
   }
 
@@ -69,7 +94,7 @@ export default class App extends React.Component {
           <Route exact path="/products" render={addCart => (<ProductsPage addCart={this.addToCart}/>)}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/contact" component={ContactUs}/>
-          <Route exact path="/cart-summary" render={cartItems => <CartSummaryPage cartItems={this.state.cart}/>}/>
+          <Route exact path="/cart-summary" render={cartItems => <CartViewPage cartItems={this.state.cart} placeOrder={this.placeOrder}/>}/>
         </Switch>
       </div>);
   }
