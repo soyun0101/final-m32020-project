@@ -93,11 +93,12 @@ app.post('/api/cart/:productId', (req, res, next) => {
           FROM "products"
           WHERE "products"."productId" = ${productId}
       `;
+      /* if have a productId and matching price, create a cartId */
     db.query(sqlCart)
       .then(result => {
         if (!result.rows[0]) {
           return res.json({ message: 'no matching products available' });
-        } else {
+        } else if (!req.session.cartId) {
 
           const sqlInsertCartId = `
                 INSERT INTO "carts" ("cartId", "createdAt")
@@ -117,7 +118,23 @@ app.post('/api/cart/:productId', (req, res, next) => {
               }
 
             }); /* ending for sqlInsertCartId.then */
-        } /* ending for else statment on if(!result.rows[0]) */
+        } else if (req.session.cartId > 0) { /* ending for else statment on if(!result.rows[0]) */
+
+          const sqlMatchCartId = `
+              SELECT "cartId"
+                FROM "carts"
+                WHERE "carts"."cartId" = ${req.session.cartId}
+            `;
+
+          return db.query(sqlMatchCartId)
+            .then(matchingCartId => {
+              req.session.cartId = matchingCartId.rows[0].cartId;
+              return {
+                cartId: req.session.cartId,
+                price: result.rows[0].price
+              };
+            });
+        }
       }) /* ending for sqlCart.then */
       .then(response => {
 
@@ -134,9 +151,11 @@ app.post('/api/cart/:productId', (req, res, next) => {
             `;
 
         return db.query(sqlInsertIntoCartItems, params)
+
           .then(cartItemIdResult => {
             return cartItemIdResult.rows[0];
           }) /* apart of the cartITEMIdResult then statement */
+
           .then(lastResponse => {
 
             const sqlRetrieveCartItems = `
@@ -165,8 +184,6 @@ app.post('/api/orders', (req, res, next) => {
 
   const { cartId } = req.session;
 
-  // console.log('cartid is: ', cartId);
-
   const { name, creditCard, shippingAddress } = req.body;
 
   const params = [
@@ -192,12 +209,9 @@ app.post('/api/orders', (req, res, next) => {
 
     db.query(sqlOrders, params)
       .then(result => {
-
+        delete req.session.cartId;
         return res.status(200).json(result.rows[0]);
       });
-
-    delete req.session.cartId;
-    // console.log('req.session.cartId is: ', req.session.cartId);
 
   }
 

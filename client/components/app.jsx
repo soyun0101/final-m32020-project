@@ -54,6 +54,7 @@ export default class App extends React.Component {
     fetch(`/api/cart/${product.productId}`, options)
       .then(res => res.json())
       .then(data => {
+
         this.cartArray.push(data); /* if cart items double,the issue may be here */
         // console.log('this.cartArray is: ', this.cartArray);
         this.setState({ cart: this.cartArray });
@@ -88,13 +89,13 @@ export default class App extends React.Component {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (<div>
-        <Header cartItemCount={this.state.cart.length}/>
+        <Header cartItemCount={this.state.cart.length} cartItems={this.state.cart}/>
         <Switch>
           <Route exact path="/" component={MainPage}/>
           <Route exact path="/products" render={addCart => (<ProductsPage addCart={this.addToCart}/>)}/>
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/contact" component={ContactUs}/>
-          <Route exact path="/cart-summary" render={cartItems => <CartViewPage cartItems={this.state.cart} placeOrder={this.placeOrder}/>}/>
+          <Route exact path="/cart-summary" render={cartItems => <CartViewPage cartItems={this.state.cart} placeOrder={this.placeOrder} cartItemCount={this.props.cartItemCount}/>}/>
         </Switch>
       </div>);
   }

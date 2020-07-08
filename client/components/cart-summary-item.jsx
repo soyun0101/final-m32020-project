@@ -9,7 +9,7 @@ export default class CartSummaryItem extends React.Component {
     const formattedPrice = dividedPrice.toFixed(2);
 
     return (
-      <div className="card view-all-cards mt-5 ml-2" style={ { maxWidth: '350px' } }>
+      <div className="card view-all-cards mt-3 ml-2" style={ { maxWidth: '350px' } }>
 
         <div className="row no-gutters">
           <div className="col-7 mb-2">

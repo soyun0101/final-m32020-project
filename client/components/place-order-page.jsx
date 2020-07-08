@@ -12,6 +12,7 @@ export default class CheckoutForm extends React.Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
 
   }
 
@@ -36,6 +37,13 @@ export default class CheckoutForm extends React.Component {
     });
 
     this.props.setCartView('cartSummary');
+
+  }
+
+  handleCancel(e) {
+    e.preventDefault();
+
+    // console.log(this.props.cartItemCount);
   }
 
   render() {
@@ -46,9 +54,9 @@ export default class CheckoutForm extends React.Component {
         <div>
           <h3>My Cart</h3>
         </div>
-        <div>
+        {/* <div>
           <h5>Item total: <span></span></h5>
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Name:
             <input type="text" className="form-control" name="name" placeholder="Enter name" onChange={this.handleInput}/>
@@ -65,7 +73,7 @@ export default class CheckoutForm extends React.Component {
           </label>
         </div>
         <div className="form-buttons">
-          <button type="" className="btn btn-danger">Cancel</button>
+          <button type="" className="btn btn-danger" onClick={this.handleCancel}>Cancel</button>
           <button type="submit" className="btn btn-primary ml-2 mr-2">Place Order</button>
         </div>
 

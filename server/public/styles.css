@@ -24,8 +24,10 @@
 }
 
 .cart-icon{
+    color: white;
     float: right;
     font-size: 2rem;
+    height: 66px;
     padding-right: 5%;
     padding-top: 4%;
 }
@@ -37,6 +39,7 @@
   right: -28px;
   top: -57px;
 }
+
 
 
 /*this is the main-page style -- mobile*/
@@ -117,6 +120,7 @@
   .view-all-cards{
     border: 1px solid black;
   }
+
 
   /*productDetail - card format for detail view --mobile */
 

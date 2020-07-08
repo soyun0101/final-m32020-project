@@ -38,7 +38,7 @@ export default class CartViewPage extends React.Component {
 
             switch (this.state.view.name) {
               case 'cartSummary': return <CartSummaryPage setCartView={this.setCartView} cartItems={this.props.cartItems} />;
-              case 'placeOrder': return <CheckoutForm setCartView={this.setCartView} params={this.state.view.params} placeOrder={this.props.placeOrder}/>;
+              case 'placeOrder': return <CheckoutForm setCartView={this.setCartView} params={this.state.view.params} placeOrder={this.props.placeOrder} cartItemCount={this.props.cartItemCount}/>;
             }
           })()
         }

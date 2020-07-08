@@ -6,21 +6,43 @@ export default class CartSummaryPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
+    this.state = {
+      totalPrice: 0
+    };
 
-    this.totalPrice = 0;
+    this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
+    this.processTotal = this.processTotal.bind(this);
 
   }
 
   componentDidMount() {
 
     this.props.setCartView('cartSummary');
+
+    this.processTotal();
+
   }
 
   handleCheckoutClick() {
-    // console.log('in handleCheckoutClick');
 
     this.props.setCartView('placeOrder');
+  }
+
+  processTotal() {
+    const items = this.props.cartItems;
+    const totalPrice = [];
+    items.map(item => {
+      const dividedPrice = item.price / 100;
+      totalPrice.push(dividedPrice);
+    });
+
+    const finalPrice = totalPrice.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+
+    this.setState({
+      totalPrice: finalPrice
+    });
   }
 
   render() {
@@ -28,7 +50,7 @@ export default class CartSummaryPage extends React.Component {
     return (
       <div>
         <div>
-          <Link to="/products" className="link-page ml-2" style={ { cursor: 'pointer' } }>
+          <Link to="/products" className="link-page ml-2" style={ { cursor: 'pointer', color: 'black' } }>
             {'< Continue shopping'}
           </Link>
         </div>
@@ -48,13 +70,7 @@ export default class CartSummaryPage extends React.Component {
                       {
                         this.props.cartItems.map(eachCartProductInfo => {
 
-                          // console.log('eachCartProductInfo is: ', eachCartProductInfo);
-
                           const { productId, image, name, price } = eachCartProductInfo;
-
-                          const dividedPrice = price / 100;
-
-                          this.totalPrice = this.totalPrice + dividedPrice;
 
                           return <div key={productId}>
                             <CartSummaryItem productId={productId} image={image} name={name} price={price} />
@@ -66,7 +82,7 @@ export default class CartSummaryPage extends React.Component {
                   </div>
 
                   <div className="float-right mt-3 mr-3">
-                    <h5>Item Total: <span>{`$${this.totalPrice.toFixed(2)}`}</span></h5>
+                    <h5>Item Total: <span>{`$${this.state.totalPrice.toFixed(2)}`}</span></h5>
                     <div className="mt-3 ml-4">
                       <button className="btn btn-info" onClick={this.handleCheckoutClick}>Check out</button>
                     </div>
